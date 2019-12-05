@@ -1,0 +1,37 @@
+{
+  "name": "@iwatakeshi/react-parallax",
+  "version": "0.0.1",
+  "main": "lib/main.js",
+  "repository": "https://github.com/iwatakeshi/react-parallax.git",
+  "author": "Takeshi Iwana <iwatakeshi@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "lib/**/*"
+  ],
+  "types": "lib/main.d.ts",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
+    "@types/react": "^16.9.15",
+    "jest": "^24.9.0",
+    "mq-polyfill": "^1.1.8",
+    "react-scripts": "^3.3.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
+  },
+  "scripts": {
+    "prepare": "yarn build",
+    "preversion": "yarn run lint",
+    "prepublishOnly": "yarn test",
+    "build": "tsc",
+    "test": "jest test --env=jsdom ",
+    "lint": "tslint -p . -t stylish",
+    "lint:fix": "tslint -p . -t stylish --fix"
+  }
+}
