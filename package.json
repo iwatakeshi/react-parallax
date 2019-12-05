@@ -20,7 +20,6 @@
     "@types/node": "^12.12.14",
     "@types/react": "^16.9.15",
     "jest": "^24.9.0",
-    "react-scripts": "^3.3.0",
     "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.3"
