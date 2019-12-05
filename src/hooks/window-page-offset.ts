@@ -8,7 +8,6 @@ interface WindowPageOffset {
 export function useWindowPageOffset(): WindowPageOffset {
   const [offset, setOffset] = useState<WindowPageOffset>({ x: 0, y: 0 })
 
-
   useEffect(() => {
     if (typeof window === 'undefined') {
       return
