@@ -28,9 +28,9 @@
   "scripts": {
     "prepare": "yarn build",
     "preversion": "yarn run lint",
-    "prepublishOnly": "yarn test",
+    "prepublishOnly": "yarn test --passWithNoTests",
     "build": "tsc",
-    "test": "jest test --env=jsdom ",
+    "test": "jest test --passWithNoTests --env=jsdom ",
     "lint": "tslint -p . -t stylish",
     "lint:fix": "tslint -p . -t stylish --fix"
   }
