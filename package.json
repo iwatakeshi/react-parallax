@@ -20,7 +20,6 @@
     "@types/node": "^12.12.14",
     "@types/react": "^16.9.15",
     "jest": "^24.9.0",
-    "mq-polyfill": "^1.1.8",
     "react-scripts": "^3.3.0",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.3"
