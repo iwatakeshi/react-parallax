@@ -78,8 +78,8 @@
   "dependencies": {
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
-    "@rooks/use-boundingclientrect-ref": "^4.8.1",
-    "@rooks/use-fork-ref": "^4.8.1",
+    "@rooks/use-boundingclientrect-ref": "^4.9.0",
+    "@rooks/use-fork-ref": "^4.9.0",
     "lodash": "^4.17.20",
     "react-intersection-observer": "^8.31.0",
     "react-spring": "^8.0.27",
