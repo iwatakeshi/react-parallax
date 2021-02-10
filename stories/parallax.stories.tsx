@@ -52,7 +52,7 @@ const transforms: Array<[string, TransformFn]> = [
 ];
 
 Simple.args = {
-  className: 'w-full height-full flex justify-center item-center',
+  className: 'w-full h-full flex justify-center item-center',
   style: {
     minHeight: '300vh',
     flexFlow: 'row wrap',
@@ -90,9 +90,10 @@ Simple.args = {
 export const Crazy = Template.bind({});
 const children = range(0, 101).map((_, index) => (
   <ParallaxLayer
+    config={{ duration: 1 }}
     key={`layer-${index}`}
     transform={y =>
-      `translate3d(${index % 2 === 0 ? y * 0.02 : -(y * 0.02)}px,${
+      `translate3d(${index % 2 === 0 ? -y * 0.02 : y * 0.02}px,${
         index % 2 === 0 ? -y * 0.02 : y * 0.02
       }px, 0)`
     }

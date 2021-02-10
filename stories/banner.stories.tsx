@@ -97,7 +97,7 @@ FullBackground.args = {
       <ParallaxLayer
         config={{ duration: 0 }}
         className="outer2 absolute inset-0"
-        transform={y => `translate3d(0px, ${-y * 0.067}px, 0px)`}
+        transform={(y: number) => `translate3d(0px, ${-y * 0.067}px, 0px)`}
         inner={{
           className: 'inner2 block absolute inset-0',
         }}
