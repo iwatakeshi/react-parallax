@@ -1638,15 +1638,15 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@rooks/use-boundingclientrect-ref@^4.8.1":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@rooks/use-boundingclientrect-ref/-/use-boundingclientrect-ref-4.8.1.tgz#6e4f893abcc22bf702bdf430666a531790bac8b2"
-  integrity sha512-kcG2gY/+iFCNxXFjJl/uB5GlqZNnrIkpXbf0HjtfvX8ktabcC2ZinW76mvtF9wvxUwh2kOH0XY39/2EXjrcLlw==
+"@rooks/use-boundingclientrect-ref@^4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@rooks/use-boundingclientrect-ref/-/use-boundingclientrect-ref-4.9.0.tgz#e53029793b3fb1acd6793d1a3ac1b0e461a654c8"
+  integrity sha512-k/YwnaVxzSofbKy26a/JMvRcwQ6Ggr1b6tEkt2RFx4GMeRgr2+lrsUPEsNCNfP3a7IgTDCAQDnjPXdYJA+v4Fw==
 
-"@rooks/use-fork-ref@^4.8.1":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@rooks/use-fork-ref/-/use-fork-ref-4.8.1.tgz#12f9a7a8d87ed508de623c55eb68e924cf82ac5f"
-  integrity sha512-5fuVq7bYUTbMuwragJN3OOAQQ92pMQXjX69IjfYoDc7b5bAnio83AqpaQtALKgjfo82ofiu2lwXg+9q2YjoBYQ==
+"@rooks/use-fork-ref@^4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@rooks/use-fork-ref/-/use-fork-ref-4.9.0.tgz#5c20f26465ddf202b4d09bf7a1d0d650bd1cdc47"
+  integrity sha512-ws9x4Kivtm/IOpbU7YX5kbbAK1yfSBSy3atQxf1lUbkl7Oa/JD8ika7zDohKA+CE4efuqJqPIm69yzBdv8DHYw==
 
 "@scarf/scarf@^1.1.0":
   version "1.1.0"
