@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { ForwardedRef, RefObject, useRef } from 'react';
+import { ForwardedRef, RefObject } from 'react';
 
 import { useScroll, useWindowScroll } from 'react-use';
 
@@ -10,12 +10,12 @@ import { useScroll, useWindowScroll } from 'react-use';
  * @param ref
  */
 export default function useScrollSelector<T = HTMLElement>(
-  ref?: ForwardedRef<T>
+  ref?: ForwardedRef<T> | RefObject<HTMLDivElement>
 ) {
-  const _ref: RefObject<HTMLElement> =
-    (ref as RefObject<HTMLDivElement>) ?? useRef<HTMLElement>();
   const { x, y } =
-    typeof ref === 'undefined' || !ref ? useWindowScroll() : useScroll(_ref);
+    typeof ref === 'undefined' || !ref
+      ? useWindowScroll()
+      : useScroll(ref as RefObject<HTMLDivElement>);
 
   return { x, y };
 }
