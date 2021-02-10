@@ -1,7 +1,6 @@
 import React, {
+  ComponentPropsWithoutRef,
   forwardRef,
-  HTMLAttributes,
-  HtmlHTMLAttributes,
   ReactNode,
   RefObject,
   useEffect,
@@ -17,21 +16,19 @@ import useParallax from './contexts/parallax.hook';
 import useBoundingclientrectRef from '@rooks/use-boundingclientrect-ref';
 import useForkRef from '@rooks/use-fork-ref';
 
-export type TransformFn =
-  | ((params: number) => string)
-  | ((x: number, y: number) => string);
+export type TransformFn = (param: number) => string;
 export type CalcFn = (x: number, y: number) => [number, number];
-export interface ParallaxLayerProps extends HtmlHTMLAttributes<HTMLDivElement> {
+export interface ParallaxLayerProps extends ComponentPropsWithoutRef<'div'> {
   transform: TransformFn;
   children?: ReactNode;
   direction?: 'x' | 'y' | 'xy';
   calc?: CalcFn;
-  inner?: HTMLAttributes<HTMLDivElement>;
+  inner?: ComponentPropsWithoutRef<'div'>;
   onVisibilityChange?: (visible: boolean) => void;
   config?: SpringConfig;
 }
 
-interface OuterLayerProps extends HTMLAttributes<HTMLDivElement> {}
+interface OuterLayerProps extends ComponentPropsWithoutRef<'div'> {}
 
 const OuterLayer = forwardRef<HTMLDivElement, OuterLayerProps>(
   function OuterLayer(props, ref) {
@@ -39,7 +36,7 @@ const OuterLayer = forwardRef<HTMLDivElement, OuterLayerProps>(
   }
 );
 
-interface InnerLayerProps extends HTMLAttributes<HTMLDivElement> {
+interface InnerLayerProps extends ComponentPropsWithoutRef<'div'> {
   interpolate: () => any;
   children: ReactNode;
 }
@@ -70,64 +67,23 @@ export default function ParallaxLayer({
   config = Config.default,
   ...props
 }: ParallaxLayerProps) {
-  const { scroll, ready } = useParallax();
+  const { scroll } = useParallax();
   const [boundingclientrectRef, rect] = useBoundingclientrectRef();
-  const { ref: intersectionRef, inView: visible } = useInView({
-    threshold: 0.6,
-  });
+  const { ref: intersectionRef, inView: visible } = useInView();
   const ref = useForkRef(intersectionRef, boundingclientrectRef as any);
   const [x, y] = scroll;
-  const springFn = () => {
-    if (direction === 'x' || direction === 'y')
-      return { springscrollY: 0, springscrollX: 0, config };
-    return { xy: 0, config };
-  };
 
-  const [_props, set, stop] = useSpring<any>(springFn) as any;
+  const [_props, set] = useSpring(() => ({ offset: 0 }));
+
+  useEffect(() => {
+    if (visible) {
+      set({ offset: y - (rect?.top ?? 0) });
+    }
+  }, [x, y]);
 
   const interpolate = () => {
-    switch (direction) {
-      case 'x':
-        return _props?.springscrollX?.interpolate(
-          transform as (x: any) => string
-        );
-      case 'xy':
-        return _props?.xy?.interpolate(transform as (x: any, y: any) => string);
-      default:
-        return _props?.springscrollY?.interpolate(
-          transform as (x: any) => string
-        );
-    }
+    return _props?.offset?.interpolate(transform as any);
   };
-
-  useEffect(() => {
-    onVisibilityChange && onVisibilityChange(visible);
-  }, [visible]);
-
-  useEffect(() => {
-    if (visible && ready) {
-      switch (direction) {
-        case 'x':
-          set({
-            springscrollX: rect ? x - rect.left : x,
-            springscrollY: 0,
-          });
-          break;
-        case 'y':
-          set({
-            springscrollX: 0,
-            springscrollY: rect ? y - rect.top : y,
-          });
-          break;
-        case 'xy':
-          calc &&
-            set({
-              xy: calc(rect ? x - rect.left : x, rect ? y - rect.top : y),
-            });
-          break;
-      }
-    } else stop();
-  }, [x, y, visible, ready, ref]);
 
   return (
     <OuterLayer ref={ref} {...props}>

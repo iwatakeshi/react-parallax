@@ -1,8 +1,13 @@
-import React, { forwardRef, HTMLAttributes, RefObject, useEffect } from 'react';
+import React, {
+  ComponentPropsWithRef,
+  forwardRef,
+  RefObject,
+  useEffect,
+} from 'react';
 import useParallax from './contexts/parallax.hook';
 import useScrollSelector from './hooks/use-scroll-selector';
 
-export type ParallaxProps = HTMLAttributes<HTMLElement> & {};
+export interface ParallaxProps extends ComponentPropsWithRef<'div'> {}
 
 const Parallax = forwardRef<HTMLElement, ParallaxProps>(function Parallax(
   props,
@@ -12,7 +17,7 @@ const Parallax = forwardRef<HTMLElement, ParallaxProps>(function Parallax(
   const { setScroll } = useParallax();
   useEffect(() => {
     setScroll(x, y);
-  }, [x, y, setScroll]);
+  }, [x, y]);
 
   return (
     <div
