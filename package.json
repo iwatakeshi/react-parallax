@@ -39,7 +39,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-parallax",
+  "name": "@iwatakeshi/react-parallax",
   "author": "Takeshi Iwana",
   "module": "dist/react-parallax.esm.js",
   "size-limit": [
