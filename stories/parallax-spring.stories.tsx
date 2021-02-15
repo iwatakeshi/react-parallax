@@ -1,21 +1,19 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import Parallax, {
-  ParallaxProvider,
-  Axis,
-  translateY,
-  TransformFn,
+import Parallax, { ParallaxProvider, Axis, translateY } from '../src';
+import { range } from 'lodash';
+import { Container, Element } from './components';
+import * as styles from './styles';
+
+import {
+  ParallaxSpring,
   translateX,
   translate3d,
   TransformSpringFn,
 } from '../src';
-import { range } from 'lodash';
-import { Container, Element } from './components';
-import * as styles from './styles';
-import scale from '../src/utils/scale';
 
 const meta: Meta = {
-  title: 'Parallax Example',
+  title: 'Parallax (Spring) Example',
   component: Parallax,
   argTypes: {
     inner: {
@@ -54,39 +52,11 @@ const Template: Story = args => (
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Simple = Template.bind({});
 
-const transforms: Array<[string, TransformFn]> = [
-  [
-    'A',
-    change => {
-      const x0 = -40;
-      const x1 = 0;
-      return translateX(`${scale(change, x0, x1, 0, 100)}%`);
-    },
-  ],
-  [
-    'B',
-    change => {
-      const x0 = 40;
-      const x1 = 0;
-      return translateX(`${scale(change, x0, x1, 0, 100)}%`);
-    },
-  ],
-  [
-    'C',
-    change => {
-      const y0 = -40;
-      const y1 = 0;
-      return translateY(`${scale(change, y0, y1, 0, 100)}%`);
-    },
-  ],
-  [
-    'D',
-    change => {
-      const y0 = 40;
-      const y1 = 0;
-      return translateY(`${scale(change, y0, y1, 0, 100)}%`);
-    },
-  ],
+const transforms: Array<[string, TransformSpringFn]> = [
+  ['A', offset => translateX(`${-offset / 10}px`)],
+  ['B', offset => translateX(`${offset / 20}px`)],
+  ['C', offset => translateY(`${-offset / 5}px`)],
+  ['D', offset => translateY(`${offset / 5}px`)],
 ];
 
 Simple.args = {
@@ -102,7 +72,7 @@ Simple.args = {
       {transforms.map((item, index) => {
         const [, transform] = item;
         return (
-          <Parallax
+          <ParallaxSpring
             key={`layer-${index}`}
             transform={transform}
             outer={{
@@ -110,7 +80,7 @@ Simple.args = {
             }}
           >
             <Element name={`${index}`} />
-          </Parallax>
+          </ParallaxSpring>
         );
       })}
     </>
@@ -119,20 +89,12 @@ Simple.args = {
 
 export const Crazy = Template.bind({});
 const children = range(0, 101).map((_, index) => (
-  <Parallax
+  <ParallaxSpring
     key={`layer-${index}`}
-    transform={change =>
+    transform={y =>
       translate3d(
-        `${
-          index % 2 === 0
-            ? scale(change, 0, -10, 0, 100)
-            : scale(change, -20, 0, 0, 100)
-        }%`,
-        `${
-          index % 2 === 0
-            ? scale(change, 0, -10, 0, 100)
-            : scale(change, 20, 0, 0, 100)
-        }%`,
+        `${index % 2 === 0 ? -y * 0.02 : y * 0.02}px`,
+        `${index % 2 === 0 ? -y * 0.02 : y * 0.02}px`,
         0
       )
     }
@@ -141,7 +103,7 @@ const children = range(0, 101).map((_, index) => (
     }}
   >
     <Element name={`${index}`} />
-  </Parallax>
+  </ParallaxSpring>
 ));
 Crazy.args = {
   children: <>{children}</>,

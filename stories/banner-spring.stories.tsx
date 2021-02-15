@@ -1,8 +1,6 @@
 import React, { ComponentProps, CSSProperties } from 'react';
 import { Meta, Story } from '@storybook/react';
-import Parallax, { ParallaxProvider, translate3d, translateY } from '../src';
-import scale from '../src/utils/scale';
-
+import { ParallaxProvider, ParallaxSpring, translateY } from '../src';
 import * as styles from './styles';
 
 const containerStyle: CSSProperties = {
@@ -38,8 +36,8 @@ const ParallaxBanner = ({ children, style }: ComponentProps<'div'>) => {
 };
 
 const meta: Meta = {
-  title: 'Banner Example',
-  component: Parallax,
+  title: 'Banner (Spring) Example',
+  component: ParallaxSpring,
   argTypes: {
     className: {
       table: {
@@ -81,12 +79,9 @@ Background.args = {
   children: (
     <>
       <ParallaxBanner>
-        <Parallax
-          transform={change => {
-            const y0 = -30;
-            const y1 = 0;
-            return translateY(`${scale(change, y0, y1, 0, 100)}%`);
-          }}
+        <ParallaxSpring
+          config={{ tension: 200, friction: 30, mass: 1 }}
+          transform={offset => translateY(`${-offset * 0.05}px`)}
           outer={{
             style: absoluteStyle,
           }}
@@ -103,7 +98,7 @@ Background.args = {
               backgroundPosition: 'center center',
             }}
           />
-        </Parallax>
+        </ParallaxSpring>
       </ParallaxBanner>
     </>
   ),
@@ -119,7 +114,8 @@ FullBackground.args = {
           height: '100vh',
         }}
       >
-        <Parallax
+        <ParallaxSpring
+          config={{ duration: 0 }}
           outer={{
             style: {
               ...containerStyle,
@@ -129,11 +125,7 @@ FullBackground.args = {
           inner={{
             style: absoluteStyle,
           }}
-          transform={change => {
-            const y0 = -30;
-            const y1 = 0;
-            return translateY(`${scale(change, y0, y1, 0, 100)}%`);
-          }}
+          transform={offset => translateY(`${-offset * 0.067}px`)}
         >
           <div
             className="absolute left-0 right-0 bg-cover"
@@ -144,7 +136,7 @@ FullBackground.args = {
               backgroundPosition: 'center center',
             }}
           />
-        </Parallax>
+        </ParallaxSpring>
       </ParallaxBanner>
     </>
   ),
@@ -156,12 +148,10 @@ FullBackgroundWithChildren.args = {
   children: (
     <>
       <ParallaxBanner>
-        <Parallax
-          transform={change => {
-            const y0 = -30;
-            const y1 = 0;
-            return translateY(`${scale(change, y0, y1, 0, 100)}%`);
-          }}
+        <ParallaxSpring
+          config={{ tension: 200, friction: 30, mass: 1 }}
+          className="outer2 absolute inset-0"
+          transform={offset => translateY(`${-offset * 0.067}px`)}
           inner={{
             className: 'inner2 block absolute inset-0',
           }}
@@ -175,7 +165,7 @@ FullBackgroundWithChildren.args = {
               backgroundPosition: 'center center',
             }}
           />
-        </Parallax>
+        </ParallaxSpring>
         <div
           className="absolute inset-0 flex items-center justify-center"
           style={{ flexFlow: 'row wrap' }}
@@ -201,15 +191,12 @@ MultipleBackgrounds.args = {
           height: '75vh',
         }}
       >
-        <Parallax
+        <ParallaxSpring
+          config={{ duration: 0 }}
           outer={{
             css: styles.bannerBg,
           }}
-          transform={change => {
-            const y0 = -30;
-            const y1 = 0;
-            return translateY(`${scale(change, y0, y1, 0, 100)}%`);
-          }}
+          transform={offset => translateY(`${-offset * 0.1}px`)}
           inner={{
             className: 'inner2 block absolute inset-0',
           }}
@@ -222,16 +209,13 @@ MultipleBackgrounds.args = {
               backgroundPosition: 'center center',
             }}
           />
-        </Parallax>
-        <Parallax
+        </ParallaxSpring>
+        <ParallaxSpring
+          config={{ duration: 0 }}
           outer={{
             css: styles.bannerBg,
           }}
-          transform={change => {
-            const y0 = -40;
-            const y1 = 0;
-            return translateY(`${scale(change, y0, y1, 0, 100)}%`);
-          }}
+          transform={offset => translateY(`${-offset * 0.05}px`)}
           inner={{
             className: 'inner2 block absolute inset-0',
           }}
@@ -244,7 +228,7 @@ MultipleBackgrounds.args = {
               backgroundPosition: 'center center',
             }}
           />
-        </Parallax>
+        </ParallaxSpring>
       </ParallaxBanner>
     </>
   ),
