@@ -18,7 +18,7 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "storybook": "start-storybook -s ./stories/static -p 6006",
+    "storybook": "start-storybook -s ./stories/public -p 6006",
     "build-storybook": "build-storybook",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
@@ -53,40 +53,50 @@
     }
   ],
   "devDependencies": {
-    "@babel/core": "^7.12.13",
+    "@babel/core": "^7.12.16",
+    "@babel/preset-typescript": "^7.12.16",
+    "@emotion/babel-plugin": "^11.2.0",
     "@size-limit/preset-small-lib": "^4.9.2",
-    "@storybook/addon-essentials": "^6.1.17",
+    "@storybook/addon-essentials": "^6.1.18",
     "@storybook/addon-info": "^5.3.21",
-    "@storybook/addon-links": "^6.1.17",
-    "@storybook/addons": "^6.1.17",
-    "@storybook/react": "^6.1.17",
+    "@storybook/addon-links": "^6.1.18",
+    "@storybook/addons": "^6.1.18",
+    "@storybook/react": "^6.1.18",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.168",
-    "@types/react": "^17.0.1",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "husky": "5",
+    "jest": "^26.6.3",
     "pinst": "^2.1.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
     "size-limit": "^4.9.2",
+    "ts-jest": "^26.5.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
-    "typescript": "^4.1.4"
+    "typescript": "^4.1.5"
   },
   "dependencies": {
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
-    "@rooks/use-boundingclientrect-ref": "^4.9.0",
-    "@rooks/use-fork-ref": "^4.9.0",
+    "@rooks/use-boundingclientrect-ref": "^4.9.1",
+    "@rooks/use-fork-ref": "^4.9.1",
     "lodash": "^4.17.20",
     "react-intersection-observer": "^8.31.0",
     "react-spring": "^8.0.27",
-    "react-use": "^17.1.0"
+    "react-use": "^17.1.1"
   },
   "resolutions": {
-    "**/@typescript-eslint/eslint-plugin": "^4.1.1",
-    "**/@typescript-eslint/parser": "^4.1.1"
+    "**/@typescript-eslint/eslint-plugin": "^4.15.0",
+    "**/@typescript-eslint/parser": "^4.15.0",
+    "**/jest": "^26.6.3",
+    "**/ts-jest": "^26.5.1",
+    "**/typescript": "^4.1.5"
   }
 }
