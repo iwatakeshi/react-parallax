@@ -12,17 +12,19 @@ import {
   config as Config,
 } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
-import useParallax from './contexts/parallax.hook';
+import useParallax from '../contexts/parallax.hook';
 import useBoundingclientrectRef from '@rooks/use-boundingclientrect-ref';
 import useForkRef from '@rooks/use-fork-ref';
+import { TransformSpringFn } from '../types/transform';
+import Axis from '../enums/axis';
+import mergeClassName from '../utils/merge-classname';
 
-export type TransformFn = (param: number) => string;
-export type CalcFn = (x: number, y: number) => [number, number];
-export interface ParallaxLayerProps extends ComponentPropsWithoutRef<'div'> {
-  transform: TransformFn;
+export interface ParallaxSpringLayerProps
+  extends ComponentPropsWithoutRef<'div'> {
+  transform: TransformSpringFn;
   children?: ReactNode;
-  direction?: 'x' | 'y' | 'xy';
-  calc?: CalcFn;
+  axis?: Axis;
+  outer?: ComponentPropsWithoutRef<'div'>;
   inner?: ComponentPropsWithoutRef<'div'>;
   onVisibilityChange?: (visible: boolean) => void;
   config?: SpringConfig;
@@ -32,7 +34,13 @@ interface OuterLayerProps extends ComponentPropsWithoutRef<'div'> {}
 
 const OuterLayer = forwardRef<HTMLDivElement, OuterLayerProps>(
   function OuterLayer(props, ref) {
-    return <div ref={ref as RefObject<HTMLDivElement>} {...props} />;
+    return (
+      <div
+        ref={ref as RefObject<HTMLDivElement>}
+        {...props}
+        className={mergeClassName('parallax-outer', props.className)}
+      />
+    );
   }
 );
 
@@ -52,42 +60,52 @@ const InnerLayer = forwardRef<HTMLDivElement, InnerLayerProps>(
           willChange: 'transform',
           ...props.style,
         }}
+        className={mergeClassName('parallax-inner', props.className)}
       />
     );
   }
 );
 
-export default function ParallaxLayer({
+export default function ParallaxSpring({
   transform,
-  direction = 'y',
-  calc,
-  inner,
   children,
   onVisibilityChange,
   config = Config.default,
+  axis = Axis.Y,
   ...props
-}: ParallaxLayerProps) {
-  const { scroll } = useParallax();
+}: ParallaxSpringLayerProps) {
+  const { scroll } = useParallax({
+    disabled: true,
+    transform: () => `translate3d(0, 0, 0)`,
+  });
   const [boundingclientrectRef, rect] = useBoundingclientrectRef();
   const { ref: intersectionRef, inView: visible } = useInView();
   const ref = useForkRef(intersectionRef, boundingclientrectRef as any);
-  const [x, y] = scroll;
+
+  const { x, y } = scroll;
 
   const [_props, set] = useSpring(() => ({ offset: 0 }));
 
   useEffect(() => {
     if (visible) {
-      set({ offset: y - (rect?.top ?? 0) });
+      switch (axis) {
+        case Axis.X:
+          set({ offset: x - (rect?.left ?? 0) });
+          break;
+        case Axis.Y:
+          set({ offset: y - (rect?.top ?? 0) });
+          break;
+      }
     }
-  }, [x, y]);
+  }, [x, y, axis, rect, set, visible]);
 
   const interpolate = () => {
-    return _props?.offset?.interpolate(transform as any);
+    return _props?.offset?.interpolate(param => transform(param as number));
   };
 
   return (
-    <OuterLayer ref={ref} {...props}>
-      <InnerLayer {...{ ...inner, interpolate, children }} />
+    <OuterLayer ref={ref} {...props.outer}>
+      <InnerLayer {...{ ...props.inner, interpolate, children }} />
     </OuterLayer>
   );
 }
