@@ -8,7 +8,7 @@ describe('Parallax', () => {
     const div = document.createElement('div');
     ReactDOM.render(
       <ParallaxProvider>
-        <Parallax />
+        <Parallax transform={() => `translate3d(0, 0, 0)`} />
       </ParallaxProvider>,
       div
     );
