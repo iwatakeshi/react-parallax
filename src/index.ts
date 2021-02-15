@@ -1,8 +1,9 @@
+/* eslint-disable */
 export * from './components/parallax';
 export * from './components/parallax-spring';
 export * from './contexts/parallax.provider';
 
-export * from './utils/translate';
+export * as utils from './utils';
 export * from './types/transform';
 
 export { default as Axis } from './enums/axis';

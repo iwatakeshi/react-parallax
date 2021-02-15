@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Axis from '../enums/axis';
 import Element, { ElementOptions } from '../classes/element';
-import { getRef } from '../utils/get-ref';
+import getRef from '../utils/get-ref';
 import useController from './use-controller';
 import { TransformFn } from '../types/transform';
 
