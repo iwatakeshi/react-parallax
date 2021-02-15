@@ -1,16 +1,16 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import Parallax, { ParallaxProvider, Axis, translateY } from '../src';
+import Parallax, {
+  Axis,
+  utils,
+  ParallaxSpring,
+  TransformSpringFn,
+} from '../src';
 import { range } from 'lodash';
 import { Container, Element } from './components';
 import * as styles from './styles';
 
-import {
-  ParallaxSpring,
-  translateX,
-  translate3d,
-  TransformSpringFn,
-} from '../src';
+const { translate3d, translateX, translateY } = utils;
 
 const meta: Meta = {
   title: 'Parallax (Spring) Example',

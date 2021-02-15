@@ -1,6 +1,7 @@
 import React, { ComponentProps, CSSProperties } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { ParallaxProvider, ParallaxSpring, translateY } from '../src';
+import { ParallaxProvider, ParallaxSpring, utils } from '../src';
+const { translateY } = utils;
 import * as styles from './styles';
 
 const containerStyle: CSSProperties = {

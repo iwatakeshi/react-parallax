@@ -1,7 +1,7 @@
 import React, { ComponentProps, CSSProperties } from 'react';
 import { Meta, Story } from '@storybook/react';
-import Parallax, { ParallaxProvider, translate3d, translateY } from '../src';
-import scale from '../src/utils/scale';
+import Parallax, { ParallaxProvider, utils } from '../src';
+const { scale, translate3d, translateY } = utils;
 
 import * as styles from './styles';
 

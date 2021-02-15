@@ -3,16 +3,14 @@ import { Meta, Story } from '@storybook/react';
 import Parallax, {
   ParallaxProvider,
   Axis,
-  translateY,
   TransformFn,
-  translateX,
-  translate3d,
   TransformSpringFn,
+  utils,
 } from '../src';
 import { range } from 'lodash';
 import { Container, Element } from './components';
 import * as styles from './styles';
-import scale from '../src/utils/scale';
+const { scale, translate3d, translateY, translateX } = utils;
 
 const meta: Meta = {
   title: 'Parallax Example',
