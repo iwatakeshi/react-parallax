@@ -1,4 +1,10 @@
-import React, { ComponentProps, ReactNode, RefObject } from 'react';
+import React, {
+  ComponentProps,
+  LegacyRef,
+  MutableRefObject,
+  ReactNode,
+  RefObject,
+} from 'react';
 import useParallax from '../contexts/parallax.hook';
 import mergeClassName from '../utils/merge-classname';
 import { TransformFn } from '../types/transform';
@@ -26,8 +32,18 @@ interface ParallaxPropsBase {
 export type ParallaxProps =
   | (ParallaxPropsBase & {
       render?: (
-        outerRef?: HTMLElement | RefObject<HTMLElement> | null,
-        innerRef?: HTMLElement | RefObject<HTMLElement> | null
+        outerRef?:
+          | HTMLElement
+          | RefObject<HTMLElement>
+          | MutableRefObject<HTMLDivElement>
+          | LegacyRef<HTMLDivElement>
+          | null,
+        innerRef?:
+          | HTMLElement
+          | RefObject<HTMLElement>
+          | MutableRefObject<HTMLDivElement>
+          | LegacyRef<HTMLDivElement>
+          | null
       ) => ReactNode | ReactNode[];
     })
   | (ParallaxPropsBase & {
