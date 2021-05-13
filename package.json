@@ -87,7 +87,7 @@
     "@emotion/styled": "^11.1.5",
     "@rooks/use-boundingclientrect-ref": "^4.9.1",
     "@rooks/use-fork-ref": "^4.9.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "react-intersection-observer": "^8.31.0",
     "react-spring": "^8.0.27",
     "react-use": "^17.1.1"
